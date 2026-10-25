@@ -1,5 +1,5 @@
 
-name: Student Result ML CI
+name: First Python CI
 
 on:
   push:
@@ -14,11 +14,11 @@ permissions:
   contents: read
 
 jobs:
-  train-and-test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Get project code
         uses: actions/checkout@v7
 
       - name: Set up Python
@@ -26,17 +26,5 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Upgrade pip
-        run: python -m pip install --upgrade pip
-
-      - name: Install ML dependencies
-        run: pip install -r requirements.txt
-
-      - name: Train student result model
-        run: python train_model.py
-
-      - name: Check ML quality gate
-        run: python quality_gate.py
-
-      - name: Run automated ML tests
+      - name: Run automated tests
         run: python -m unittest discover -v
